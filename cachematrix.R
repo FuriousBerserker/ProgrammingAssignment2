@@ -1,3 +1,8 @@
+# To calculate the inverse, call cacheSolve like this cacheSolve(matrix). The symbol matrix is the input matrix.
+
+
+
+# This function is used to retuan a special list which is responsioble for get/set the matrix and inverse.
 makeCacheMatrix <- function(x = matrix()) {
 	cache <- NULL
 	getCache <- function() {
@@ -8,7 +13,7 @@ makeCacheMatrix <- function(x = matrix()) {
 		cache <<- inverse
 	}
 
-	getMatrix <- function() {
+	getMatrix <- function() {			
 		x
 	}
 
@@ -24,7 +29,10 @@ makeCacheMatrix <- function(x = matrix()) {
 
 func <- makeCacheMatrix()
 
-cacheSolve <- function(funcList = func, newMatrix = NULL) {
+# This function is used to calculate the inverse of certain matrix.
+# newMatrix is the input matrix whose inverse will be return.
+# funcList is a list of function return by makeCacheMatrix. We have create one default funcList in the global environment to serve as the default value.
+cacheSolve <- function(newMatrix = NULL, funcList = func) {
 	data <- NULL
 	if (!is.null(newMatrix)) {
 		funcList$setMatrix(newMatrix)
@@ -35,7 +43,7 @@ cacheSolve <- function(funcList = func, newMatrix = NULL) {
 			message("read inverse from cache")
 			return (cache)
 		} else {
-			data <- getMatrix()
+			data <- func$getMatrix()
 		}
 	}
 
